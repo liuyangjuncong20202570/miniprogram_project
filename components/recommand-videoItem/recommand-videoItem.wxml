@@ -1,0 +1,12 @@
+<!--components/recommand-videoItem/recommand-videoItem.wxml-->
+<wxs module="format" src="../../utils/format.wxs"></wxs>
+<view class="list">
+  <view class="left">
+    <image src="{{itemList.coverUrl}}" mode="widthFix" class="image"/>
+    <view class="count">{{format.formatCount(itemList.durationms)}}</view>
+  </view>
+  <view class="right">
+    <view class="title">{{itemList.title}}</view>
+    <view class="author">{{itemList.creator[0].userName}}</view>
+  </view>
+</view>

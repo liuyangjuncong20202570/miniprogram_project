@@ -1,0 +1,8 @@
+<!--pages/main-video/main-video.wxml-->
+<view class="container">
+<block wx:for="{{topmvList}}" wx:key="index">
+    <videoItem bindtap="toDetailPage" data-id="{{item.id}}" videoList="{{item}}"></videoItem>
+</block>
+</view>
+
+

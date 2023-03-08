@@ -1,0 +1,7 @@
+/* pages/main-video/main-video.wxss */
+
+.container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "recommand-videoItem":"/components/recommand-videoItem/recommand-videoItem"
+  }
+}

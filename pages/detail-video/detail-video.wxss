@@ -1,0 +1,52 @@
+/* pages/detail-video/detail-video.wxss */
+page{
+  /* padding-top: 450rpx; */
+  height: 100vh;
+}
+
+.video{
+  width: 100%;
+  top: 0;
+}
+
+/* 对于如何使图片固定在一个位置上滚动主要有两种解决方法： */
+/* 1：使用固定定位，并调整z-index */
+/* 2：给整个页面设置100vh */
+/* 并且将scroll-view的高度设置为100%-上边图片高度 */
+.scroll-container{
+  height: calc(100% - 450rpx);
+}
+
+.info .title{
+  padding: 30rpx;
+  padding-bottom: 20rpx;
+  font-weight: 700;
+  font-size: 32rpx;
+  box-sizing: border-box;
+}
+
+.info .content{
+  color: #666;
+  padding: 0 30rpx;
+  font-size: 24rpx;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.info .more{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.info .content .brif{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.recommand .title{
+  font-size: 32rpx;
+  padding: 30rpx;
+}

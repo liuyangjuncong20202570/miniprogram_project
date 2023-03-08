@@ -1,0 +1,23 @@
+<!--pages/main-video/components/videoItem/viewItem.wxml-->
+
+<wxs module="format" src="/utils/format.wxs"></wxs>
+
+<view class="mvList">
+    <view class="item">
+    <view class="banner">
+      <image class="cover" src="{{videoList.cover}}" mode="widthFix"/>
+      <view class="content">
+        <view class="left">
+          <text class="text">{{format.formatCount(videoList.playCount)}}</text>
+        </view>
+        <view class="right">
+          <text>{{format.formatTime(videoList.mv.videos[0].duration)}}</text>
+        </view>
+      </view>
+    </view>
+      
+    
+      
+      <view class="bottom">{{videoList.name}} - {{videoList.artistName}}</view>
+    </view>
+</view>

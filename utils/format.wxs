@@ -1,0 +1,27 @@
+function formatCount(count){
+  var totalCount = parseInt(count)
+  if(totalCount > 10000){
+    return (totalCount / 10000).toFixed(1) + '万'
+  }else{
+    return totalCount
+  }
+}
+
+function addZero(num){
+  num = '' + num
+  newNum = '00' + num
+  return newNum.slice(num.length)
+}
+
+function formatTime(time){
+  var numTime = parseInt(time)
+  numTime = numTime / 1000
+  var minite = Math.floor(numTime / 60)
+  var seconds = numTime % 60
+  return addZero(minite) + ':' + addZero(seconds)
+}
+
+module.exports = {
+  formatCount:formatCount,
+  formatTime:formatTime
+}
