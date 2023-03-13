@@ -1,0 +1,11 @@
+<!--components/detailsong-Item-1/detailsong-Item-1.wxml-->
+<view class="container" bindtap="onSongclick">
+  <view class="left">{{key + 1}}</view>
+  <view class="right">
+    <view class="name">{{name}}</view>
+    <view class="bottom">
+      <image src="/assets/images/icons/sq_icon.png" mode="widthFix" class="sq"/>
+     <view class="author">{{author}}</view>
+    </view>
+  </view>
+</view>

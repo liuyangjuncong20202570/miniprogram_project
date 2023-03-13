@@ -1,0 +1,35 @@
+/* components/custome-navBar/custome-navBar.wxss */
+.navBar{
+  display: flex;
+  height: 44px;
+  color: #fff;
+}
+
+.left, .center, .right{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left, .right {
+  width: 120rpx;
+  font-size: 40rpx;
+}
+
+.center{
+  flex: 1;
+}
+
+/* 按需展示插槽默认值 */
+.leftText, .centerText{
+  display: none;
+}
+
+.left-components:empty + .leftText{
+  display: flex;
+}
+
+.center-components:empty + .centerText{
+  display: block;
+}
+

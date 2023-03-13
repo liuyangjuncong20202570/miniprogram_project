@@ -2,7 +2,54 @@
 <van-search
   value="{{ searchValue }}"
   shape="round"
-  background="#fafafa"
+  background="#f7f7f7"
   placeholder="请输入搜索关键词"
   bind:click-input="onSearchclick"
 />
+
+<!-- 轮播图 -->
+<swiper 
+  wx:if="{{banners.length}}"
+  autoplay 
+  indicator-dots 
+  circular 
+  class="banner"
+  style="height: {{bannerHeight}}PX;"
+>
+  <block wx:for="{{banners}}" wx:key="targetId">
+    <swiper-item>
+      <!-- 之所以会出现滚动点在图片下面主要是因为后端传过来的图片没有将整个轮播图组件给撑满 -->
+      <!-- 解决方法是：动态的将图片高度绑定给轮播图组件 -->
+      <image bindload="onImageload" class="banner-image" src="{{item.imageUrl}}" mode="widthFix"/>
+    </swiper-item>
+  </block>
+</swiper>
+
+<!-- 头部展示 -->
+<view wx:if="{{hotList.length}}" class="hot">
+  <area-header title="热门歌曲" bindmoreClick="onMoreClick"></area-header>
+  <view class="showbanner">
+    <block wx:for="{{hotList}}" wx:key="id">
+    <songItem-1 bindtap="onSongclick" data-id="{{item.id}}" songItem="{{item}}"></songItem-1>
+  </block>
+  </view>
+</view>
+
+<!-- 热门歌单展示 -->
+<menuArea title="热门歌单" screenWidth="{{screenWidth}}" menuList="{{hotmenu}}"></menuArea>
+
+<!-- 推荐歌单歌单展示 -->
+<menuArea title="推荐歌单" screenWidth="{{screenWidth}}" menuList="{{recmenu}}"></menuArea>
+
+<!-- 排行榜展示 -->
+<view wx:if="{{isEmpty}}" class="rank">
+  <area-header title="巅峰榜" isShow="{{false}}" text=""></area-header>
+  <view class="rank-container">
+    <block wx:for="{{rankingInfos}}" wx:key="index">
+      <song-rank-item key="{{index}}" listData="{{item}}"></song-rank-item>
+    </block>
+  </view>
+ 
+</view>
+
+

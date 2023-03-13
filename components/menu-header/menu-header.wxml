@@ -1,0 +1,32 @@
+<!--components/menu-header/menu-header.wxml-->
+<wxs src="../../utils/format.wxs" module="format"/>
+<view class="container">
+  <view class="bgi">
+    <image src="{{menuList.coverImgUrl}}" mode="aspectFill" class="image"/>
+    <view class="bg-cover"></view>
+  </view>
+  
+  <view class="content">
+    <view class="top">
+      <image src="{{menuList.coverImgUrl}}" mode="widthFix" class="cover"/>
+    <view class="right">
+      <view class="title">{{menuList.name}}</view>
+      <view class="bar">
+        <image src="{{menuList.creator.avatarUrl}}" mode="widthFix" class="avatar"/>
+      <view class="name">{{menuList.creator.nickname}}</view>
+      </view>
+      <view class="desc">简介：{{menuList.description}}</view>
+    </view>
+    </view>
+    <view class="bottom">
+      <view class="like-item">
+        <image src="/assets/images/icons/favor_icon.png" mode="widthFix" class="like item"/>
+        <text class="text">{{format.formatCount(menuList.subscribedCount)}}</text>
+      </view>
+      <view class="share-item">
+        <image src="/assets/images/icons/share_icon.png" mode="widthFix" class="share item"/>
+        <text class="text">分享</text>
+      </view>
+    </view>
+  </view>
+</view>

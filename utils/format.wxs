@@ -1,6 +1,8 @@
 function formatCount(count){
   var totalCount = parseInt(count)
-  if(totalCount > 10000){
+  if( totalCount > 100000000 ){
+    return (totalCount / 100000000).toFixed(1) + '亿'
+  }else if(totalCount > 10000){
     return (totalCount / 10000).toFixed(1) + '万'
   }else{
     return totalCount
@@ -14,8 +16,8 @@ function addZero(num){
 }
 
 function formatTime(time){
+  time = time / 1000
   var numTime = parseInt(time)
-  numTime = numTime / 1000
   var minite = Math.floor(numTime / 60)
   var seconds = numTime % 60
   return addZero(minite) + ':' + addZero(seconds)

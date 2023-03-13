@@ -1,0 +1,4 @@
+/* pages/detail-menu/detai-menu.wxss */
+page{
+  padding: 0 30rpx;
+}

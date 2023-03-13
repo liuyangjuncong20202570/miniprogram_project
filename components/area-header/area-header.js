@@ -1,0 +1,22 @@
+// components/area-header/area-header.js
+Component({
+  properties:{
+    title:{
+      type:String,
+      value:'默认标题'
+    },
+    text:{
+      type:String,
+      value:'更多'
+    },
+    isShow:{
+      type:Boolean,
+      value:true
+    }
+  },
+  methods:{
+    onMoreClick(){
+      this.triggerEvent('moreClick')
+    }
+  }
+})

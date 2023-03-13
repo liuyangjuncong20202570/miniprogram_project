@@ -1,0 +1,11 @@
+<!--components/menuItem/menuItem.wxml-->
+<wxs module="format" src="../../utils/format.wxs"></wxs>
+<view bindtap="jumpTomenu" class="container">
+  <view class="top">
+    <image src="{{menuItem.coverImgUrl}}" mode="widthFix" class="image"/>
+    <view class="count">{{format.formatCount(menuItem.playCount)}}</view>
+  </view>
+  <view class="bottom">
+    {{menuItem.name}}
+  </view>
+</view>

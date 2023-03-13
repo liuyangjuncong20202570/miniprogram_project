@@ -1,0 +1,19 @@
+/* components/menu-area/menu-area.wxss */
+.hotMenu .scrollX{
+  width: 375px;
+  margin-left: -30rpx;
+}
+
+.hotMenu .show-bar{
+  display: flex;
+  flex-wrap: nowrap;
+}
+.hotMenu .show-bar .item{
+  flex-shrink: 0;
+}
+
+/* 注意：尽量别在scrollview组件中使用flex布局，在自定义组件中使用，否则最后一个margin-right会被吞掉 */
+/* 解决方案：在组件内部使用flex布局，之后在main-music的css样式中使用first-of-type使第一个自定义组件的margin-left等于其他的margin-right */
+.show-bar .item:first-of-type{
+  margin-left: 30rpx;
+}

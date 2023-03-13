@@ -1,0 +1,16 @@
+<!--components/custome-navBar/custome-navBar.wxml-->
+<view class="navBar">
+  <view class="left">
+  <view class="left-components" >
+    <slot name="left-components"></slot>
+  </view>
+    <text class="leftText">{{leftText}}</text>
+  </view>
+  <view class="center">
+    <view class="center-components">
+      <slot name="center-components"></slot>
+    </view>
+    <text class="centerText">{{centerText}}</text>
+  </view>
+  <view class="right"></view>
+</view>

@@ -1,0 +1,40 @@
+/* components/songItem-1/songItem-1.wxss */
+.container{
+  display: flex;
+  justify-content: space-between;
+  line-height: 1.12;
+  align-items: center;
+  margin-bottom: 28rpx;
+}
+
+.left{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left .image{
+  width: 120rpx;
+  border-radius: 14rpx;
+}
+
+.count{
+  margin-left: 20rpx;
+}
+
+.count .title{
+  font-size: 30rpx;
+  color: #444;
+}
+
+.count .author{
+  position: relative;
+  top: 10rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.right{
+  box-sizing: border-box;
+  padding-right: 30rpx;
+}

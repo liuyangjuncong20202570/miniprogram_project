@@ -21,6 +21,34 @@
           "query": "mvId=14607725",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "歌单界面",
+          "pathName": "pages/detail-menu/detai-menu",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "排行详情页",
+          "pathName": "pages/detail-song/detail-song",
+          "query": "type=ranking&key=newList",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "详情页",
+          "pathName": "pages/detail-song/detail-song",
+          "query": "type=menu&id=6968985546",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "歌单播放页",
+          "pathName": "pages/music-player/music-player",
+          "query": "id=1974443814",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

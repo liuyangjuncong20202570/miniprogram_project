@@ -1,0 +1,17 @@
+<!--components/song-list-Item/song-list-Item.wxml-->
+<wxs module="format" src="../../utils/format.wxs"></wxs>
+<view class="tag">
+  <area-header class="header" title="{{title}}" text="" isShow="{{false}}" ></area-header>
+  <view class="item">
+    <block wx:for="{{songItem}}" wx:key="id">
+      <view class="container">
+        <view class="top">
+        <image src="{{item.coverImgUrl}}" mode="widthFix" class="image"/>
+        <view class="count">{{format.formatCount(item.playCount)}}</view>
+      </view>
+      <view class="bottom">{{item.description}}</view>
+      </view>
+    </block>
+  </view>
+  
+</view>

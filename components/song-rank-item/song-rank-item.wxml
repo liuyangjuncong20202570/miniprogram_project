@@ -1,0 +1,16 @@
+<!--components/song-rank-item/song-rank-item.wxml-->
+
+<wxs module="format" src="../../utils/format.wxs"></wxs>
+
+<view bindtap="onJumptoDetail" class="container">
+  <view class="left">
+    <view class="title">{{listData.name}}</view>
+    <block wx:for="{{3}}" wx:key="*this">
+      <view class="content">{{item + 1}}.{{listData.tracks[item].name}} - {{listData.tracks[item].ar[0].name}}</view>
+    </block>
+  </view>
+  <view class="right">
+    <image src="{{listData.coverImgUrl}}" mode="widthFix" class="image"/>
+    <view class="count">{{format.formatCount(listData.playCount)}}</view>
+  </view>
+</view>

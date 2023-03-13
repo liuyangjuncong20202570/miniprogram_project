@@ -1,0 +1,45 @@
+/* components/song-rank-item/song-rank-item.wxss */
+.container{
+  box-sizing: border-box;
+  padding-left: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 16rpx;
+  background-color: #eee;
+  margin-bottom: 16rpx;
+  overflow: hidden;
+}
+
+.left .title{
+  font-size: 34rpx;
+}
+
+.left .content{
+  font-size: 24rpx;
+  color: #333;
+  margin-top: 10rpx;
+}
+
+.container .right{
+  position: relative;
+}
+
+.right .image{
+  vertical-align: top;
+}
+
+.right .count{
+  position: absolute;
+  padding: 10rpx 10rpx;
+  border-radius: 16rpx;
+  background-color: rgba(0,0,0,.5);
+  font-size: 24rpx;
+  color: #fff;
+  bottom: 0;
+  right: 0;
+}
+
+.container .right .image{
+  width: 240rpx;
+}

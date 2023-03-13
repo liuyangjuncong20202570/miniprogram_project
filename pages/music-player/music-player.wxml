@@ -1,0 +1,67 @@
+<!--pages/music-player/music-player.wxml-->
+<wxs src="../../utils/format.wxs" module="format"/>
+<view class="container">
+  <view style="height: {{statusBar}}px;" class="titlebar"></view>
+  <image src="{{currentSong.al.picUrl}}" mode="aspectFill" class="bg-image"/>
+  <view class="bg-cover"></view>
+  <custome-navBar leftText="返回" centerText="哈哈哈">
+    <van-icon bindtap="onBackclick" slot="left-components" name="arrow-left" />
+    <view class="center" slot="center-components">
+      <block wx:for="{{pageTitles}}" wx:key="*this">
+        <view bindtap="oncenterClick" data-index="{{index}}" class="{{currentPage === index ? 'active' : ''}}">{{item}}</view>
+        <view wx:if="{{ index !== pageTitles.length - 1 }}" class="divider">|</view>
+      </block>
+    </view>
+  </custome-navBar>
+
+  <!-- 歌曲展示具体页面利用轮播图的机制 -->
+  <swiper current="{{currentPage}}" style="height: {{contentHeight}}px;" bindchange="onScroll">
+    <swiper-item>
+      <view class="music">
+        <view class="cover">
+          <image src="{{currentSong.al.picUrl}}" mode="widthFix" class="album"/>
+        </view>
+        <view class="copyright">
+          <view class="title">{{currentSong.name}}</view>
+          <view class="author">{{currentSong.al.name}}</view>
+        </view>
+        <view class="lyric">{{currentLyric}}</view>
+        <view class="progress">
+        <!-- 点击进度条上任意一点改变歌曲播放进度 -->
+          <slider bindchange="onSliderchange" 
+          bindchanging="onSliderchanging"
+          value="{{sliderValue}}" block-size="12" class="slider"/>
+          <view class="time">
+            <view class="current">{{format.formatTime(currentTime)}}</view>
+            <view class="duration">{{format.formatTime(durationTime)}}</view>
+          </view>
+        </view>
+        <view class="control">
+          <image class="circular" src="/assets/images/player/play_order.png" mode="widthFix"/>
+          <image src="/assets/images/player/play_prev.png" mode="widthFix" class="previous"/>
+          <image 
+            wx:if="{{!isPause}}"
+            bindtap="onPauseorPlay" 
+            src="/assets/images/player/play_pause.png" 
+            mode="widthFix" class="pause"
+          />
+          <image 
+            wx:else
+            bindtap="onPauseorPlay" 
+            src="/assets/images/player/play_resume.png" 
+            mode="widthFix" class="pause"
+          />
+          <image src="/assets/images/player/play_next.png" mode="widthFix" class="next"/>
+          <image src="/assets/images/player/play_music.png" mode="widthFix" class="list"/>
+        </view>
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view class="songlyric" scroll-y>
+        <block wx:for="{{lyricInfo}}" wx:key="index">
+          <view class="item">{{item.text}}</view>
+        </block>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+</view>

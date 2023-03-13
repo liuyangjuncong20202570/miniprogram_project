@@ -1,0 +1,6 @@
+<!--pages/detail-menu/detai-menu.wxml-->
+<view class="tag">
+  <block wx:for="{{tagList}}" wx:key="*this">
+    <song-list-Item title="{{item}}" tag="{{item}}"></song-list-Item>
+  </block>
+</view>
