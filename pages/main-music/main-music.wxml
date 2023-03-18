@@ -30,7 +30,7 @@
   <area-header title="热门歌曲" bindmoreClick="onMoreClick"></area-header>
   <view class="showbanner">
     <block wx:for="{{hotList}}" wx:key="id">
-    <songItem-1 bindtap="onSongclick" data-id="{{item.id}}" songItem="{{item}}"></songItem-1>
+    <songItem-1 bindtap="onSongclick" data-index="{{index}}" data-id="{{item.id}}" songItem="{{item}}"></songItem-1>
   </block>
   </view>
 </view>

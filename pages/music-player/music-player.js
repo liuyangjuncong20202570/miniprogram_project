@@ -1,15 +1,13 @@
 // pages/music-player/music-player.js
-import { getSongdetail,getSonglyrc } from "../../services/player/player"
-import { parseLyric } from "../../utils/parseLyric"
+import playerStore, {audioContext} from "../../store/playerStore"
+import { throttle } from "underscore"
 
 const app = getApp()
-const audioContext = wx.createInnerAudioContext()
 
 Page({
   data:{
-    id:0,
     songLyrc:'',
-    lyricInfo:[],
+    playerIndex:0,
     statusBar: 0,
     isPause:false,
     sliderValue:0,
@@ -19,37 +17,28 @@ Page({
     durationTime:0,
     contentHeight:0,
     isWaiting:false,
-    currentLyric:'',
-    currentLyricindex:0,
+    lyricScrolltop:0,
+    isFirstplay:true,
+    playName:'order',
     isSliderchanging:false,
-    pageTitles:['歌曲','歌词']
+    pageTitles:['歌曲','歌词'],
+    playModelnames:['order', 'repeat', 'random'],
+    playerKeys:['id', 'currentSong', 'currentTime', 'durationTime', 'lyricInfo', 'currentLyric', 'currentLyricindex', 'isPause', 'playModelIndex']
   },
   onLoad(options){
     // console.log(options);
+    const id = options.id
     this.setData({
-      id:options.id,
+      id,
       statusBar: app.globalData.statusBarHeight,
       contentHeight:app.globalData.contentHeight,
     })
-    this.Songlyrc()
-    this.Songdetail()
-    // 歌曲播放
-    const id = this.data.id
-    audioContext.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
-    audioContext.autoplay = false
-    // 进度条时间正确显示
-    audioContext.onTimeUpdate(()=>{
-      if (!this.data.isSliderchanging && !this.data.isWaiting) {
-        this.lyricMatching()
-        this.sliderMatching()
-      }
-    })
-    audioContext.onWaiting(()=>{
-      audioContext.pause()
-    })
-    audioContext.onCanplay(()=>{
-      audioContext.play()
-    })
+    
+    // this.setupSong()
+    playerStore.dispatch('playMusicwithSongId', id)
+    playerStore.onStates(this.data.playerKeys, this.getPlayerinfosHandler)
+
+    playerStore.onStates(['playerIndex', 'songplayerList'], this.statesHandler)
   },
 
   // 造成点击滑块使音乐跳转时滚动条会闪回原先位置bug的主要原因是：更新currentTime和sliderValue的频率过快，也就是说：当我设定了sliderValue的时候currentTime也准备进行更新为新的sliderValue的值，但还未开始进行，仍停留在之前的位置，所以滚动条会先滚到之前的currentTime的位置，之后再回滚到设定为sliervalue的位置，所以当使用节流函数降低之间的更新频率时就不会造成回滚
@@ -61,7 +50,7 @@ Page({
   },
 
   // 歌词解析
-  lyricMatching(){
+ async lyricMatching(){
     let nowIndex = this.data.lyricInfo.length - 1
     for( let i = 0; i<this.data.lyricInfo.length; i++ ){
       if (this.data.currentTime <= this.data.lyricInfo[i].time) {
@@ -72,29 +61,11 @@ Page({
     if (this.data.currentLyricindex === nowIndex) return
       this.setData({
         currentLyric: this.data.lyricInfo[nowIndex]?.text,
-        currentLyricindex: nowIndex
+        currentLyricindex: nowIndex,
+        lyricScrolltop: 35 * nowIndex
       })
   },
 
-
-
-  async Songdetail(){
-    const res = await getSongdetail(this.data.id)
-    // console.log(res);
-    this.setData({
-      currentSong:res.songs[0],
-      durationTime:res.songs[0].dt
-    })
-  },
-  async Songlyrc(){
-    const res = await getSonglyrc(this.data.id)
-    // console.log(res);
-    const lyricString = res.lrc.lyric
-    const lyricInfo = parseLyric(lyricString)
-    this.setData({
-      lyricInfo
-    })
-  },
   onScroll(event){
     // console.log(event);
     this.setData({
@@ -110,6 +81,7 @@ Page({
   onBackclick(){
     wx.navigateBack()
   },
+
   onSliderchange(event){
     // 1: 获取变化后进度条的时间
     // 在事件对象的detail属性中
@@ -133,22 +105,76 @@ Page({
   },
 
   // 当移动滚动条时音频不变时间变化且当滚动到一定位置时歌曲播放位置发生变化
-  onSliderchanging(event){
+  onSliderchanging: throttle(function(event){
     const value = event.detail.value
     this.setData({
       currentTime: value / 100 *this.data.durationTime,
       isSliderchanging:true
     })
-  },
+  }),
 
   onPauseorPlay(){
-    this.setData({
-      isPause: !this.data.isPause
-    })
-    if (this.data.isPause) {
-      audioContext.pause()
-    }else{
-      audioContext.play()
+    playerStore.dispatch('musicIsplaying')
+  },
+
+  // 监听store中的数据变化
+  statesHandler({playerIndex, songplayerList}){
+    if (songplayerList) {
+      this.setData({
+        playerList: songplayerList
+      })
+    }
+    if (playerIndex !== undefined) { this.setData({playerIndex}) }
+  },
+
+  // 点击上一首
+  onprevTap(){
+    playerStore.dispatch('playNextmusic', false)
+  },
+
+  // 点击下一首
+  onnextTap(){
+    playerStore.dispatch('playNextmusic')
+  },
+
+
+  // 切换播放模式
+  modelChange(){
+    playerStore.dispatch('musicplayModel')
+  },
+
+  getPlayerinfosHandler({id, currentSong, currentTime, durationTime, lyricInfo, currentLyric, currentLyricindex, isPause, playModelIndex}){
+    if (id !== undefined) {
+      this.setData({ id })
+    }
+    if (currentSong) {
+      this.setData({ currentSong })
+    }
+    if (currentTime !== undefined) {
+      // this.setData({ currentTime })
+       if (!this.data.isSliderchanging && !this.data.isWaiting) {
+            this.setData({ currentTime, sliderValue: (this.data.currentTime / this.data.currentSong.dt)*100 })
+          }
+    }
+    if (durationTime !== undefined) {
+      this.setData({ durationTime })
+    }
+    if (lyricInfo) {
+      this.setData({ lyricInfo })
+    }
+    if (currentLyric) {
+      this.setData({ currentLyric })
+    }
+    if (currentLyricindex !== undefined) {
+      this.setData({ currentLyricindex, lyricScrolltop: currentLyricindex * 35 })
+    }
+    if (isPause !== undefined) {
+      this.setData({ isPause })
+    }
+    if (playModelIndex !== undefined) {
+      this.setData({ 
+        playName: this.data.playModelnames[playModelIndex]
+       })
     }
   }
 })

@@ -1,2 +1,46 @@
 <!--pages/detail-search/detail-search.wxml-->
-<text>pages/detail-search/detail-search.wxml</text>
+<van-search
+  value="{{ searchValue }}"
+  shape="round"
+  background="#f7f7f7"
+  placeholder="请输入搜索关键词"
+  bindchange="onChange"
+  bind:focus="onFocus"
+  bind:blur="onBlur"
+  bind:click-input="onSearchclick"
+/>
+
+<view class="container">
+  <view wx:if="{{!searchValue.length && !searchImageList.length}}" class="hotSuggest">
+  <area-header title="热门搜索" isShow="{{false}}" text=""></area-header>
+  <view class="list">
+    <block wx:for="{{hotSuggestList}}" wx:key="first">
+      <view class="item">{{item.first}}</view>
+    </block>
+  </view>
+  </view>
+
+  <!-- 建议联想 -->
+  <view wx:elif="{{ searchImageList.length && !resultSongs.length }}" class="searchImage">
+    <view class="title">搜索"{{searchValue}}"</view>
+    <view class="sulist">
+      <block wx:for="{{searchImageList}}" wx:key="index">
+        <view class="suitem" bindtap="getResult" data-keyword="{{item.keyword}}">
+          <image class="icon" mode="widthFix" src="/assets/images/icons/search_icon.png"></image>
+        <view class="text">{{item.keyword}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view class="result" wx:elif="{{ resultSongs.length }}">
+  <view class="title">最佳匹配</view>
+  <view class="relist">
+    <block wx:for="{{resultSongs}}" wx:key="id">
+      <detailsong-Item-1 itemData="{{item}}" key="{{index}}" name="{{item.al.name}}" author="{{item.ar[0].name}}"></detailsong-Item-1>
+    </block>
+  </view>
+</view>
+</view>
+

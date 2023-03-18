@@ -1,66 +1,56 @@
 // pages/detail-search/detail-search.js
+import { hotSuggest, suggestImagin, getdongResult } from "../../services/search/search"
+import stringToNodes from "../../utils/string2nodes"
 Page({
-
-  /**
-   * 页面的初始数据
-   */
-  data: {
-
+  data:{
+    hotSuggestList:[],
+    searchValue:'',
+    searchImageList:[],
+    suggestSongsNodes:[],
+    isSearch:false,
+    resultSongs:[]
+  },
+  onLoad(){
+    this.gethotSuggest()
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  // 获取热门推荐
+ async gethotSuggest(){
+    const res = await hotSuggest()
+    this.setData({
+      hotSuggestList: res.result.hots
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
+  // 获取热门搜索
+  async getSuggest(kw){
+    const res = await suggestImagin(kw)
+     // 空关键字判断
+     if (!this.data.searchValue.length) {
+      this.setData({ searchImageList: [] })
+      return
+    }
+    this.setData({
+      searchImageList: res.result?.allMatch
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
+  // 获取搜索结果
+  async getsongResult(kw){
+    const res = await getdongResult(kw)
+    console.log(res);
+    this.setData({ resultSongs: res.result.songs })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
+  onChange(e){
+    this.getSuggest(this.data.searchValue)
+   
+    this.setData({
+      searchValue: e.detail
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
+  onFocus(){
+    this.getSuggest(this.data.searchValue)
+    this.setData({ isSearch: true })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  getResult(e){
+    this.getsongResult(e.currentTarget.dataset.keyword)
   }
 })

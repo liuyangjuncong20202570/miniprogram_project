@@ -2,6 +2,8 @@
 import rankingStore from "../../store/rankingStore"
 import hotStore from "../../store/index"
 import { gethotSongslist } from "../../services/music/music"
+import playerStore from "../../store/playerStore"
+
 Page({
   data:{
     type:'',
@@ -9,7 +11,6 @@ Page({
     songList:{}
   },
   onLoad(options){
-    console.log(options.type,options.key);
     this.setData({
       type:options.type,
       key:options.key || ''
@@ -36,6 +37,12 @@ Page({
     this.setData({
       songList:res.playlist
     })
+  },
+
+  onListtap(event){
+    const index = event.currentTarget.dataset.index
+    playerStore.setState('songplayerList', this.data.songList.tracks)
+    playerStore.setState('playerIndex', index)
   },
 
   onUnload(){

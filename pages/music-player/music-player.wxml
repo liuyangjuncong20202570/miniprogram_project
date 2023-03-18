@@ -37,8 +37,18 @@
           </view>
         </view>
         <view class="control">
-          <image class="circular" src="/assets/images/player/play_order.png" mode="widthFix"/>
-          <image src="/assets/images/player/play_prev.png" mode="widthFix" class="previous"/>
+          <image 
+            class="circular" 
+            src="/assets/images/player/play_{{playName}}.png" 
+            mode="widthFix"
+            bindtap="modelChange"
+          />
+          <image 
+            src="/assets/images/player/play_prev.png" 
+            mode="widthFix" 
+            class="previous"
+            bindtap="onprevTap"
+          />
           <image 
             wx:if="{{!isPause}}"
             bindtap="onPauseorPlay" 
@@ -51,15 +61,30 @@
             src="/assets/images/player/play_resume.png" 
             mode="widthFix" class="pause"
           />
-          <image src="/assets/images/player/play_next.png" mode="widthFix" class="next"/>
+          <image 
+            src="/assets/images/player/play_next.png" 
+            mode="widthFix" 
+            class="next"
+            bindtap="onnextTap"
+          />
           <image src="/assets/images/player/play_music.png" mode="widthFix" class="list"/>
         </view>
       </view>
     </swiper-item>
     <swiper-item>
-      <scroll-view class="songlyric" scroll-y>
+      <scroll-view 
+        scroll-with-animation
+        scroll-top="{{lyricScrolltop}}" 
+        class="songlyric" 
+        scroll-y
+      >
         <block wx:for="{{lyricInfo}}" wx:key="index">
-          <view class="item">{{item.text}}</view>
+          <view
+            class="item {{currentLyricindex === index ? 'chosenLyric' : ''}}" 
+            style="padding-top: {{index === 0 ? (contentHeight / 2 - 65) : 0}}px; padding-bottom: {{index === lyricInfo.length - 1 ? (contentHeight / 2 + 65) : 0}}px;"
+          >
+          {{item.text}}
+          </view>
         </block>
       </scroll-view>
     </swiper-item>

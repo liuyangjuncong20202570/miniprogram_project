@@ -113,11 +113,27 @@
   font-size: 28rpx;
   text-align: center;
   height: 100%;
-  
+  box-sizing: border-box;
+  padding: 40rpx;
+}
+
+.songlyric ::-webkit-scrollbar{
+  display: none;
 }
 
 .songlyric .item{
+  height: 35px;
+  height: auto;
+  min-height: 35px;
   box-sizing: border-box;
   padding: 0 80rpx;
-  line-height: 60px;
+  line-height: 35px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chosenLyric{
+  color: #fff;
+  font-size: 32rpx;
 }

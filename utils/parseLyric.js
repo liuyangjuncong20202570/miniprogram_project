@@ -12,6 +12,5 @@ export const parseLyric = (string) =>{
     const text = ly.replace(timeReg , '')
     lyrcArr.push({time, text})
   }
-  console.log(lyrcArr);
   return lyrcArr
 }

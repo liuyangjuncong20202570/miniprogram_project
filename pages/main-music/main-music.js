@@ -3,6 +3,7 @@ import rankingStore from "../../store/rankingStore"
 import boundingHeight from "../../utils/query-selector"
 import { throttle } from "underscore"
 import hotStore from "../../store/index"
+import playerStore from "../../store/playerStore"
 
 const boundingHeightThrottle = throttle(boundingHeight,100)
 const app = getApp()
@@ -104,8 +105,12 @@ Page({
   },
   onSongclick(event){
     const id = event.currentTarget.dataset.id
+    const index = event.currentTarget.dataset.index
+    console.log(index);
     wx.navigateTo({
       url: `/pages/music-player/music-player?id=${id}`,
     })
+    playerStore.setState('songplayerList', this.data.hotList)
+    playerStore.setState('playerIndex', index)
   }
 })
