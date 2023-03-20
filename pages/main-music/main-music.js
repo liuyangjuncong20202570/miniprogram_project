@@ -19,7 +19,9 @@ Page({
     recmenu:[],
     screenWidth:375,
     rankingInfos:{},
-    isEmpty:false
+    isEmpty:false,
+    currentSong:{},
+    isPause:false
   },
   onLoad(){
     hotStore.onState('hotList',(value)=>{this.setData({hotList:value.tracks?.slice(0,6)})})
@@ -28,6 +30,7 @@ Page({
     rankingStore.onState('newList',this.getRankingdata('newList'))
     rankingStore.onState('originList',this.getRankingdata('originList'))
     rankingStore.onState('upList',this.getRankingdata('upList'))
+    playerStore.onStates(['currentSong', 'isPause'], this.getPlayer)
     this.getBannersRec()
     this.gethotmenu()
     this.setData({
@@ -112,5 +115,19 @@ Page({
     })
     playerStore.setState('songplayerList', this.data.hotList)
     playerStore.setState('playerIndex', index)
+  },
+  getPlayer(value){
+    this.setData({
+      currentSong: value.currentSong,
+      isPause: value.isPause
+    })
+  },
+  tapPlayorPause(){
+    playerStore.dispatch('musicIsplaying')
+  },
+  albumTap(){
+    wx.navigateTo({
+      url: '/pages/music-player/music-player',
+    })
   }
 })

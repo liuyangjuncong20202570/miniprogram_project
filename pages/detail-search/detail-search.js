@@ -36,7 +36,6 @@ Page({
   // 获取搜索结果
   async getsongResult(kw){
     const res = await getdongResult(kw)
-    console.log(res);
     this.setData({ resultSongs: res.result.songs })
   },
   onChange(e){

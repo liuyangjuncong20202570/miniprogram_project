@@ -35,7 +35,9 @@ Page({
     })
     
     // this.setupSong()
-    playerStore.dispatch('playMusicwithSongId', id)
+    if (id) {
+      playerStore.dispatch('playMusicwithSongId', id)  
+    }
     playerStore.onStates(this.data.playerKeys, this.getPlayerinfosHandler)
 
     playerStore.onStates(['playerIndex', 'songplayerList'], this.statesHandler)

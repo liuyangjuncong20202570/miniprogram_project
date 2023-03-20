@@ -49,7 +49,23 @@
       <song-rank-item key="{{index}}" listData="{{item}}"></song-rank-item>
     </block>
   </view>
- 
 </view>
 
+<!-- 播放栏搭建 -->
+<view class="play-holder" wx:if="{{currentSong.name}}"></view>
+<view class="play-bar" wx:if="{{currentSong.name}}">
+  <view class="left" bindtap="albumTap">
+    <image 
+      src="{{currentSong.al.picUrl}}" 
+      mode="widthFix" 
+      class="album album-rotate"
+      style="animation-play-state: {{isPause? 'paused' : 'running'}};"
+    />
+    <view class="name">{{currentSong.name}}</view>
+  </view>
+  <view class="right">
+    <image class="play" bindtap="tapPlayorPause" src="../../assets/images/music/{{isPause?'play':'pause'}}_icon.png" mode="widthFix"/>
+    <image src="../../assets/images/music/playlist_icon.png" mode="widthFix" class="icon"/>
+  </view>
+</view>
 
