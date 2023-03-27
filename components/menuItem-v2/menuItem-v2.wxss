@@ -1,0 +1,36 @@
+/* components/menuItem-v2/menuItem-v2.wxss */
+.item{
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+  justify-content: space-between;
+}
+
+.left{
+  display: flex;
+  align-items: center;
+}
+
+.left .avatar{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 8rpx;
+}
+
+.left .content{
+  margin-left: 20rpx;
+}
+
+.content .title{
+  font-size: 28rpx;
+}
+
+.content .songlength{
+  margin-top: 4rpx;
+  font-size: 24rpx;
+  color: #888;
+}
+
+.right .delete{
+  color: #888;
+}

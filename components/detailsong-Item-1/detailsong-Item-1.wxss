@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   margin: 20rpx 0;
+  position: relative;
 }
 
 .right{
@@ -26,4 +27,11 @@
   margin-top: 10rpx;
   font-size: 28rpx;
   color: #999;
+}
+
+.more-icon{
+  color: #999;
+  position: absolute;
+  right: 30rpx;
+  bottom: 10rpx;
 }

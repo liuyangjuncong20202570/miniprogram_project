@@ -8,4 +8,6 @@
      <view class="author">{{author}}</view>
     </view>
   </view>
+  <!-- 为了防止事件冒泡，所以使用catchtap -->
+  <van-icon class="more-icon" name="bars" catchtap="onFavortap" />
 </view>

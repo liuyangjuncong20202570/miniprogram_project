@@ -1,0 +1,69 @@
+/* pages/main-profile/main-profile.wxss */
+page{
+  box-sizing: border-box;
+  padding: 30rpx;
+  background-color: #f3f3f3;
+}
+
+.section{
+  padding: 30rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  margin-bottom: 40rpx;
+}
+
+.userinfo{
+  display: flex;
+  align-items: center;
+}
+
+.userinfo .avatar{
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+}
+
+.userinfo .nickname{
+  margin-left: 20rpx;
+  font-size: 30rpx;
+}
+
+.tabs{
+  display: flex;
+  justify-content: space-around;
+}
+
+.item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item .icon{
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.item .title{
+  font-size: 24rpx;
+  margin-top: 20rpx;
+}
+
+.content .header{
+  margin-bottom: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #888;
+  font-size: 24rpx;
+}
+
+.dialog .input{
+  height: 70rpx;
+  line-height: 70rpx;
+  padding: 0 16rpx;
+  margin: 30rpx;
+  border: 1px solid #eee;
+  border-radius: 6rpx;
+  font-size: 24rpx;
+}

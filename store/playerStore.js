@@ -1,6 +1,7 @@
 import { HYEventStore } from "hy-event-store"
 import { getSongdetail, getSonglyrc } from "../services/player/player"
 import { parseLyric } from "../utils/parseLyric"
+import { historyCol } from "../database/index"
 
 export const audioContext = wx.createInnerAudioContext()
 
@@ -38,6 +39,7 @@ const playerStore = new HYEventStore({
       getSongdetail(ctx.id).then(res=>{
         ctx.currentSong = res.songs[0]
         ctx.durationTime = res.songs[0].dt
+        historyCol.add(res.songs[0])
       })
       // 歌曲播放
       // 当切换播放模式时，同一个音频URl可能会导致audioContext不识别，所以需要在调用src之前将audioContext给关闭再重新打开

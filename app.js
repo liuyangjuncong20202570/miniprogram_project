@@ -16,5 +16,8 @@ App({
         this.globalData.contentHeight = res.screenHeight - res.statusBarHeight - 44
       }
     })
+    wx.cloud.init({
+      env: 'lyjc-dev-5gh59l8c00c8735b'
+    })
   }
 })

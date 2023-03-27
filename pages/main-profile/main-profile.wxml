@@ -1,0 +1,51 @@
+<!--pages/main-profile/main-profile.wxml-->
+<!-- 头像和名称 -->
+<view class="section userinfo" bindtap="onUserlogin">
+  <image 
+    src="{{ isLogin ? userinfo.avatarUrl : '/assets/images/profile/avatar_placeholder.png'}}" 
+    mode="widthFix" 
+    class="avatar"
+  />
+  <view class="nickname">{{ isLogin ? userinfo.nickName : '未登录'}}</view>
+</view>
+
+<!-- 选项tabs栏 -->
+<view class="section tabs">
+  <block wx:for="{{tabs}}" wx:key="name">
+   <view class="item" bindtap="onTabtap" data-item="{{item}}">
+    <image class="icon" src="/assets/images/profile/{{item.type}}.png" mode="widthFix"/>
+    <view class="title">{{item.name}}</view>
+   </view>
+  </block>
+</view>
+
+<!-- 我的歌单 -->
+<view class="mine-menu">
+  <area-header title="我的歌单" isShow="{{false}}" text=""></area-header>
+  <view class="section content">
+    <view class="header">
+      <view class="title">创建歌单</view>
+      <van-icon name="plus" bindtap="onPlustap"/>
+    </view>
+
+  <van-dialog
+    class="dialog"
+    use-slot
+    title="创建歌单"
+    show="{{ isDialogShow }}"
+    show-cancel-button
+    bind:confirm="onConfirmtap"
+  >
+    <input 
+      model:value="{{ input }}" 
+      placeholder="请输入歌单名称" 
+      class="input" 
+      type="text"
+      bind:input="onInputtap"
+    />
+  </van-dialog>
+  <block wx:for="{{menuList}}" wx:key="name">
+    <menuItem-v2 itemData="{{item}}"></menuItem-v2>
+  </block>
+  </view>
+</view>

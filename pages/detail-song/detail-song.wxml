@@ -7,6 +7,15 @@
 </view>
 <view class="container">
   <block wx:for="{{songList.tracks}}" wx:key="id">
-    <detailsong-Item-1 bindtap="onListtap" data-index="{{index}}" itemData="{{item}}" key="{{index}}" name="{{item.name}}" author="{{item.ar[0].name}}" ></detailsong-Item-1>
+    <detailsong-Item-1 
+      menuList="{{menuList}}" 
+      bindtap="onListtap" 
+      data-index="{{index}}" 
+      itemData="{{item}}" 
+      key="{{index}}" 
+      name="{{item.name}}" 
+      author="{{item.ar[0].name}}"
+    >
+    </detailsong-Item-1>
   </block>
 </view>
